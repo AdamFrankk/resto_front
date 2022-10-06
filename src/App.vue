@@ -1,33 +1,28 @@
 <template>
   <div class="layout">
     <Header> </Header>
-    <div class="list">
-      <h3 class="list__title">Блюда:</h3>
-      <div class="list__body">
-        <ul>
-          <li>Горячее</li>
-          <li>Супы</li>
-          <li>Вино</li>
-          <li>Мясо</li>
-          <li>Горячее</li>
-          <li>Супы</li>
-          <li>Вино</li>
-          <li>Мясо</li>
-        </ul>
-      </div>
-    </div>
+    <CategoriesList />
   </div>
 </template>
 
 <script>
-import Header from "./components/UI/Header.vue";
+import Header from "./components/LayoutComponents/Header.vue";
+import CategoriesList from "./components/UI/Lists/categories-list.vue";
 export default {
   name: "App",
-  components: { Header },
+  components: { Header, CategoriesList },
+  data() {
+    return {
+      tg: null,
+    };
+  },
+  mounted() {
+    this.tg = this.window.Telegram.WebApp;
+  },
 };
 </script>
 
-<style>
+<style lang="scss">
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap");
 
 * {
@@ -53,24 +48,5 @@ export default {
   background: #2c3e50;
   min-height: 100vh;
   color: #fff;
-}
-
-.list {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 25px;
-}
-
-.list__title {
-  margin-bottom: 20px;
-}
-
-ul {
-  display: flex;
-  gap: 15px;
-  flex-direction: column;
-  list-style: none;
-  text-align: left;
 }
 </style>
