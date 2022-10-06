@@ -28,8 +28,9 @@ export default {
 
 <style lang="scss" scoped>
 .categories-card {
-  max-width: 47%;
-  max-height: 210px;
+  max-width: 45%;
+  max-height: 40vmin;
+  background: #fff;
   position: relative;
   overflow: hidden;
   border-radius: 10px;
@@ -41,7 +42,7 @@ export default {
   }
   img {
     transition: transform 0.2s;
-    max-width: 105%;
+    max-width: 100%;
     width: 100%;
     border-radius: 10px;
   }
@@ -50,15 +51,14 @@ export default {
     z-index: 2;
     bottom: 0;
     border-radius: 0px 0 10px 10px;
-    padding: 0 10px;
-    line-height: auto;
-    padding-bottom: 10px;
+    padding: 2vmin 10px 3.5vmin;
+    line-height: 0;
     width: calc(100% - 20px);
     background: rgba(0, 0, 0, 0.412);
     text-align: center;
     span {
       font-family: "Montserrat";
-      font-size: 12px;
+      font-size: 2.4vmin;
       font-weight: 500;
     }
   }

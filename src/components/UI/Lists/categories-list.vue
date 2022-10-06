@@ -76,13 +76,13 @@ export default {
         width: 100%;
         min-height: 50px;
         background: rgb(255, 255, 255);
-        color: rgb(123, 64, 21);
-        border: 1px solid rgb(123, 64, 21);
+        color: #343332;
+        border: 1px solid #343332;
         cursor: pointer;
         border-radius: 10px;
         transition: all 0.25s cubic-bezier(0.455, 0.03, 0.515, 0.955);
         &:hover {
-            background: rgb(123, 64, 21);
+            background: #343332;
             color: rgb(255, 255, 255);
             border: 1px solid rgb(255, 255, 255);
         }
