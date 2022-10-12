@@ -1,16 +1,13 @@
 <template>
   <div class="layout">
-    <Header> </Header>
-    <CategoriesList />
+    <Pages></Pages>
   </div>
 </template>
 
 <script>
-import Header from "./components/LayoutComponents/Header.vue";
-import CategoriesList from "./components/UI/Lists/categories-list.vue";
+import Pages from "./pages/index.vue";
 export default {
   name: "App",
-  components: { Header, CategoriesList },
   data() {
     return {
       tg: null,
@@ -19,6 +16,7 @@ export default {
   mounted() {
     this.tg = this.window.Telegram.WebApp;
   },
+  components: { Pages },
 };
 </script>
 
