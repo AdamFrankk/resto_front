@@ -1,7 +1,8 @@
 <template>
-  <div class="categories-card">
-    <img :src="require(`../../../static/images/${img}.jpg`)" alt="" />
-    <div class="categories-card__title">
+  <div class="categoriesCard">
+    <img :src="`data:image/jpeg;base64,${img}`" alt="" />
+    <!-- <img :src="require(`../../../static/images/${img}.jpg`)" alt="" /> -->
+    <div class="categoriesCard__title">
       <span>{{ title }}</span>
     </div>
   </div>
@@ -23,11 +24,12 @@ export default {
       datar: 0,
     };
   },
+  methods: {},
 };
 </script>
 
 <style lang="scss" scoped>
-.categories-card {
+.categoriesCard {
   max-width: 45%;
   max-height: 40vmin;
   background: #fff;

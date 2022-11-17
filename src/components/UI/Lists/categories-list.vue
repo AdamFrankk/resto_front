@@ -1,37 +1,37 @@
 <template>
-  <div class="list">
-    <h3 class="list__title">Меню:</h3>
-    <div class="list__body">
+  <div class="categoriesList">
+    <h3 class="categoriesList__title">Меню:</h3>
+    <div class="categoriesList__body">
       {{ this.tg }}
-      <div class="list__cards">
-        <CategoriesCard
+      <div class="categoriesList__cards">
+        <CategoryCard
           v-for="item in categories"
           :key="item.id"
           :title="item.title"
           :img="item.img"
+          @click="upData(item)"
         />
       </div>
-      <div class="list__other">
+      <div class="categoriesList__other">
         <button class="resto-button">Показать еще</button>
       </div>
-      <div>
-        {{ this.categ }}
-      </div>
+      <div></div>
     </div>
   </div>
 </template>
 
 <script>
-import CategoriesCard from "../Cards/categories-card.vue";
+import CategoryCard from "../Cards/category-card.vue";
 import axios from "axios";
 import { backDomain } from "../../../../MainConstant";
 
 export default {
   name: "CategoriesList",
-  components: { CategoriesCard },
+  components: { CategoryCard },
   data() {
     return {
-      categories: [
+      loading: true,
+      categories_: [
         { id: 1, title: "Вино", img: "vine" },
         { id: 2, title: "Супы", img: "soup" },
         { id: 3, title: "Пицца", img: "pizza" },
@@ -41,34 +41,52 @@ export default {
         { id: 7, title: "Салаты", img: "salad" },
         { id: 8, title: "Блюда из говядины", img: "beef" },
       ],
-      categ: null,
-      tokenStr: "YWRhbUZyYW5rOjJSdDNmX20zQDN5",
+      categories: null,
     };
   },
   watch: {
-    categ(newData) {
-      this.categ = newData;
+    categories(newData) {
+      this.categories = newData;
     },
   },
-  async mounted() {
+  async beforeMount() {
     axios
-      .get(backDomain + "/api/categories/getAllCategories", {
-        headers: { Authorization: `Basic YWRhbUZyYW5rOjJSdDNmX20zQDN5` },
-      })
+      .get(backDomain + "/api/category/getAll")
       .then((res) => {
-        this.categ = res.data;
+        this.categories = res.data;
         console.log(this.categ);
+        localStorage.setItem("categories", res.data);
       })
       .catch((error) => {
         console.log(error);
-        this.categ = error;
       });
+  },
+  methods: {
+    upData(data) {
+      this.$emit("updateData", {
+        item: data,
+      });
+    },
+    decode() {
+      // var xhr = new XMLHttpRequest();
+      // xhr.open("GET", "image?id=1", true);
+      // xhr.responseType = "arraybuffer";
+      // xhr.onload = function (e) {
+      //   var arrayBufferView = new Uint8Array(this.response);
+      //   var blob = new Blob([arrayBufferView], { type: "image/jpeg" });
+      //   var urlCreator = window.URL || window.webkitURL;
+      //   var imageUrl = urlCreator.createObjectURL(blob);
+      //   var img = document.querySelector("#image");
+      //   img.src = imageUrl;
+      // };
+      // xhr.send();
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.list {
+.categoriesList {
   display: flex;
   flex-direction: column;
   align-items: flex-start;

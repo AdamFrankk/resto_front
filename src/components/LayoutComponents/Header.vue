@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="header__logo">
-      <img src="../../../src/assets/logo.jpeg" alt="" />
+      <img src="../../../src/static/images/logo.jpeg" alt="" />
       <span>WEB APP</span>
     </div>
     <div class="header__cart">
@@ -12,6 +12,7 @@
         height="30px"
         viewBox="0 0 30 30"
         version="1.1"
+        @click="openCart"
       >
         <g id="surface1">
           <path
@@ -27,12 +28,25 @@
 <script>
 export default {
   name: "FullHeader",
+  data() {
+    return {
+      truefalse: true,
+    };
+  },
+  methods: {
+    openCart() {
+      this.$emit("openCart", {
+        data: this.truefalse,
+      });
+    },
+  },
 };
 </script>
 
 <style lang="scss">
 .header {
   display: flex;
+  font-weight: 700;
   gap: 20px;
   justify-content: space-between;
   align-items: center;
