@@ -42,10 +42,10 @@ export default {
   watch: {
     count() {
       if (this.count < 1) {
-        this.count = 1
-      } 
-    }
-  }
+        this.count = 1;
+      }
+    },
+  },
 };
 </script>
 
@@ -133,9 +133,17 @@ export default {
     min-width: 100%;
     &.orange {
       background: rgb(255, 175, 27);
+      transition: all 0.1s;
+      &:active {
+        background: rgb(213, 142, 10);
+      }
     }
     &.red {
       background: rgb(255, 24, 24);
+      transition: all 0.1s;
+      &:active {
+        background: rgb(180, 2, 2);
+      }
     }
   }
 }

@@ -79,6 +79,7 @@ export default {
   }
   img {
     max-width: 100px;
+    max-height: 100px;
     border-radius: 5px;
   }
   &__info {

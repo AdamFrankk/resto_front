@@ -117,7 +117,13 @@ export default {
   },
   async beforeCreate() {
     axios
-      .get(backDomain + "/api/menu/getByCategory/" + this.id)
+      .get(backDomain + "/api/menu/getByCategory/" + this.id, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Basic ${btoa("CheckIst0" + ":" + "z4:20=)13#V")}`,
+          "ngrok-skip-browser-warning": "69420",
+        },
+      })
       .then((res) => {
         this.items = res.data;
         console.log(this.items);

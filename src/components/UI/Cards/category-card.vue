@@ -1,6 +1,7 @@
 <template>
   <div class="categoriesCard">
     <img :src="`data:image/jpeg;base64,${img}`" alt="" />
+    <!-- ПОМЕНЯТЬ -->
     <!-- <img :src="require(`../../../static/images/${img}.jpg`)" alt="" /> -->
     <div class="categoriesCard__title">
       <span>{{ title }}</span>
@@ -30,7 +31,7 @@ export default {
 
 <style lang="scss" scoped>
 .categoriesCard {
-  max-width: 45%;
+  max-width: 47.5%;
   max-height: 40vmin;
   background: #fff;
   position: relative;
@@ -46,7 +47,9 @@ export default {
     transition: transform 0.2s;
     max-width: 100%;
     width: 100%;
+    min-height: 100%;
     border-radius: 10px;
+    object-fit: cover;
   }
   &__title {
     position: absolute;

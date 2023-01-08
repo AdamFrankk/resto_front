@@ -21,6 +21,9 @@
           />
         </g>
       </svg>
+      <div class="header__cartCounter" v-if="cartItemsLength !== 0">
+        {{ cartItemsLength }}
+      </div>
     </div>
   </div>
 </template>
@@ -31,6 +34,7 @@ export default {
   data() {
     return {
       truefalse: true,
+      cartItemsLength: 0,
     };
   },
   methods: {
@@ -40,10 +44,18 @@ export default {
       });
     },
   },
+  created() {
+    if (localStorage.getItem("items")) {
+      this.cartItemsLength = JSON.parse(localStorage.getItem("items")).length;
+    }
+  },
+  updated() {
+    this.cartItemsLength = JSON.parse(localStorage.getItem("items")).length;
+  },
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .header {
   display: flex;
   font-weight: 700;
@@ -57,6 +69,7 @@ export default {
     align-items: center;
   }
   &__cart {
+    position: relative;
     padding: 15px 15px 15px 12.5px;
     border-radius: 50%;
     background: #fff;
@@ -73,7 +86,28 @@ export default {
       #surface1 path {
         fill: #fff;
       }
+      .header__cartCounter {
+        background: #343332;
+        color: #fff;
+      }
     }
+  }
+  &__cartCounter {
+    transition: all 0.33s;
+    position: absolute;
+    font-size: 18px;
+    top: -8px;
+    right: -8px;
+    min-width: 28px;
+    min-height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    color: #343332;
+
+    background: #fff;
   }
 }
 

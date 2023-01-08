@@ -3,17 +3,24 @@
     <h3 class="categoriesList__title">Меню:</h3>
     <div class="categoriesList__body">
       {{ this.tg }}
-      <div class="categoriesList__cards">
+      <div class="categoriesList__cards" v-if="categories !== null">
         <CategoryCard
-          v-for="item in categories"
+          v-for="item in categories_now"
           :key="item.id"
           :title="item.title"
           :img="item.img"
           @click="upData(item)"
         />
       </div>
+      <div v-else class="categoriesList__load">Загрузка...</div>
       <div class="categoriesList__other">
-        <button class="resto-button">Показать еще</button>
+        <button
+          v-if="categoriesLength > viewItems"
+          class="resto-button"
+          @click="showMore()"
+        >
+          Показать еще
+        </button>
       </div>
       <div></div>
     </div>
@@ -31,6 +38,7 @@ export default {
   data() {
     return {
       loading: true,
+      viewItems: 6,
       categories_: [
         { id: 1, title: "Вино", img: "vine" },
         { id: 2, title: "Супы", img: "soup" },
@@ -40,20 +48,41 @@ export default {
         { id: 6, title: "Пиво", img: "beer" },
         { id: 7, title: "Салаты", img: "salad" },
         { id: 8, title: "Блюда из говядины", img: "beef" },
+        { id: 9, title: "Вино", img: "vine" },
+        { id: 10, title: "Супы", img: "soup" },
+        { id: 11, title: "Пицца", img: "pizza" },
+        { id: 12, title: "Бургеры", img: "burger" },
+        { id: 13, title: "Блины", img: "pancake" },
+        { id: 14, title: "Пиво", img: "beer" },
+        { id: 15, title: "Салаты", img: "salad" },
+        // { id: 16, title: "Блюда из говядины", img: "beef" },
       ],
+      categories_now: [],
       categories: null,
+      categoriesLength: 0,
     };
   },
   watch: {
     categories(newData) {
-      this.categories = newData;
+      this.categories = newData; // поменять
     },
   },
   async beforeMount() {
     axios
-      .get(backDomain + "/api/category/getAll")
+      .get(backDomain + "/api/category/getAll", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Basic ${btoa("CheckIst0" + ":" + "z4:20=)13#V")}`,
+          "ngrok-skip-browser-warning": "69420",
+        },
+      })
       .then((res) => {
         this.categories = res.data;
+        this.categories_now = [];
+        for (let index = 0; index < this.viewItems; index++) {
+          this.categories_now.push(this.categories[index]);
+        }
+        this.categoriesLength = res.data.length;
         console.log(this.categ);
         localStorage.setItem("categories", res.data);
       })
@@ -62,6 +91,18 @@ export default {
       });
   },
   methods: {
+    showMore() {
+      // поменять categories на categories
+      if (this.categories.length - this.viewItems < 4) {
+        this.viewItems += this.categories.length - this.viewItems;
+      } else {
+        this.viewItems += 4;
+      }
+      this.categories_now = [];
+      for (let index = 0; index < this.viewItems; index++) {
+        this.categories_now.push(this.categories[index]);
+      }
+    },
     upData(data) {
       this.$emit("updateData", {
         item: data,
@@ -96,9 +137,14 @@ export default {
   }
   &__cards {
     display: flex;
-    gap: 20px;
+    gap: 20px 10px;
     justify-content: space-between;
     flex-wrap: wrap;
+  }
+  &__load {
+    text-align: center;
+    margin-top: 100px; 
+    margin-left: 100%;
   }
   &__other {
     margin-top: 25px;

@@ -14,7 +14,7 @@ export default {
     };
   },
   mounted() {
-    this.tg = this.window.Telegram.WebApp;
+    this.tg = window.Telegram.WebApp;
   },
   components: { Pages },
 };
@@ -46,5 +46,30 @@ export default {
   background: #2c3e50;
   min-height: 100vh;
   color: #fff;
+}
+.resto-button {
+  font-family: "Montserrat";
+  font-size: 15px;
+  font-weight: 600;
+  width: 100%;
+  min-height: 50px;
+  background: rgb(255, 255, 255);
+  color: #343332;
+  border: 1px solid #343332;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all 0.25s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  &:hover {
+    background: #343332;
+    color: rgb(255, 255, 255);
+    border: 1px solid rgb(255, 255, 255);
+  }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 </style>
