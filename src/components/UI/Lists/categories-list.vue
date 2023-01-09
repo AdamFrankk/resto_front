@@ -143,8 +143,6 @@ export default {
   }
   &__load {
     text-align: center;
-    margin-top: 100px; 
-    margin-left: 100%;
   }
   &__other {
     margin-top: 25px;

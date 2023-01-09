@@ -26,7 +26,7 @@
       <h3 class="itemsList__title">{{ name }}</h3>
     </div>
     <div class="itemsList__body">
-      <div class="itemsList__cards">
+      <div class="itemsList__cards" v-if="items !== null">
         <ItemCard
           v-for="item in items"
           :key="item.id"
@@ -39,6 +39,10 @@
           @click="saveItemInCart(item)"
         />
       </div>
+      <div v-else-if="error !== null" class="itemsList__load">
+        {{ error }}
+      </div>
+      <div v-else class="itemsList__load">Загрузка...</div>
       <div class="itemsList__other">
         <button class="resto-button">Показать еще</button>
       </div>
@@ -93,6 +97,8 @@ export default {
         { id: 6, title: "Derbent", info: "Виноград с Дербента", image: "vine" },
       ],
       items: null,
+      itemsLength: -1,
+      error: null
     };
   },
   watch: {
@@ -126,10 +132,11 @@ export default {
       })
       .then((res) => {
         this.items = res.data;
+        this.itemsLength = res.data.length;
         console.log(this.items);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        this.error = err
       });
   },
 };
